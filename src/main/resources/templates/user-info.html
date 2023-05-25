@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>List users</title>
+</head>
+<body>
+
+<form th:action="@{/admin/saveUser}" th:object="${userForAdd}" method="post">
+
+  <table border="0" cellpadding="10">
+    <tr>
+      <td>Username</td>
+      <td><input type="text" th:field="*{username}"></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><input type="text" th:field="*{password}"></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><input type="text" th:field="*{name}"></td>
+    </tr>
+    <tr>
+      <td>Surname</td>
+      <td><input type="text" th:field="*{surname}"></td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td><input type="text" th:field="*{city}"></td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td><input type="text" th:field="*{age}"></td>
+    </tr>
+    <tr>
+      <td>Roles</td>
+      <td><input type="text" th:field="*{roles}"></td>
+    </tr>
+  </table>
+
+  <br/>
+
+  <input type="submit" value="OK"/>
+</form>
+
+<br/>
+
+<form th:action="@{/logout}" method="post">
+  <input type="submit" value="Log out"/>
+</form>
+
+</body>
+</html>
