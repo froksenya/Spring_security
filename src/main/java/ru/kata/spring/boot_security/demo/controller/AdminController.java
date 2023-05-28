@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-
 import java.util.List;
 
 @Controller
@@ -14,12 +13,10 @@ import java.util.List;
 public class AdminController {
 
     private UserService userService;
-
     @Autowired
-    public void setUserService(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
-
 
     @GetMapping("/all")
     public String showAllUsers(Model model) {
