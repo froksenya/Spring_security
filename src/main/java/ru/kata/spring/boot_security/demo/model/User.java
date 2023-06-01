@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -134,8 +135,8 @@ public class User implements UserDetails {
         role.getUsers().add(this);
     }
 
-    public List<String> getUserRoles(User user) {
-        List<String> allRoles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
-        return allRoles;
+    public String getUserRoles(User user) {
+        String allRolls = user.getRoles().stream().map(Role::getName).collect(Collectors.joining(" ")).replaceAll("ROLE_", "");
+        return allRolls;
     }
 }

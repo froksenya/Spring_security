@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.*;
@@ -18,12 +17,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private RoleRepository roleRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -46,9 +44,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public void deleteUser(Long userID) {
-        if (userRepository.findById(userID).isPresent()) {
-            userRepository.deleteById(userID);
-        }
+        userRepository.deleteById(userID);
     }
 
     public List<User> getAllUsers() {
@@ -56,7 +52,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public void saveUser(User user) {
-        user.setRoles(new HashSet<>(roleRepository.findByName("ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -71,7 +66,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-
         userRepository.save(user);
     }
 
